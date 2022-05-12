@@ -1,9 +1,21 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
-app.get("/hello_world", (request, response) => {
-    return response.json({message: "hello world "});
+const persons = [];
+
+app.post("/person", (request, response) => {
+    const { id, name, age } = request.body;
+
+    const person = {
+        id,
+        name, 
+        age
+    }
+
+    persons.push(person);
+    return response.status(201).send(person);
 });
 
 app.listen(3333); 
