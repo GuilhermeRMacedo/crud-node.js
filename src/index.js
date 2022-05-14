@@ -40,7 +40,7 @@ app.get("/person/:id", (request, response) => {
         response.status(404).send({errorMessage: "person with id " + id + " not found"})
     }
 
-    response.status(200).send(person);
+    return response.status(200).send(person);
 });
 
 //update
@@ -51,13 +51,28 @@ app.put("/person/:id", (request, response) => {
     const person = persons.find((person) => person.id == id);
 
     if(!person) {
-        response.status(404).send({errorMessage: "person with id " + id + " not found"})
+        return response.status(404).send({errorMessage: "person with id " + id + " not found"})
     }
     
     person.name = name;
     person.age = age;
 
-    response.status(200).send(person);
+    return response.status(200).send(person);
+});
+
+//delete
+app.delete("/person/:id", (request, response) => {
+    const { id } = request.params;
+
+    const person = persons.find((person) => person.id == id);
+
+    if(!person) {
+        response.status(404).send({errorMessage: "person with id " + id + " not found"})
+    }
+
+    persons.splice(person, 1);
+
+    return response.status(204).send();
 });
 
 app.listen(3333); 
