@@ -43,4 +43,21 @@ app.get("/person/:id", (request, response) => {
     response.status(200).send(person);
 });
 
+//update
+app.put("/person/:id", (request, response) => {
+    const { id } = request.params;
+    const { name, age } = request.body;
+
+    const person = persons.find((person) => person.id == id);
+
+    if(!person) {
+        response.status(404).send({errorMessage: "person with id " + id + " not found"})
+    }
+    
+    person.name = name;
+    person.age = age;
+
+    response.status(200).send(person);
+});
+
 app.listen(3333); 
