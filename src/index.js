@@ -37,7 +37,7 @@ app.get("/person/:id", (request, response) => {
     const person = persons.find((person) => person.id == id);
 
     if(!person) {
-        response.status(404).send({errorMessage: "person with id " + id + " not found"})
+        return response.status(404).send({errorMessage: "person with id " + id + " not found"})
     }
 
     return response.status(200).send(person);
@@ -67,7 +67,7 @@ app.delete("/person/:id", (request, response) => {
     const person = persons.find((person) => person.id == id);
 
     if(!person) {
-        response.status(404).send({errorMessage: "person with id " + id + " not found"})
+        return response.status(404).send({errorMessage: "person with id " + id + " not found"})
     }
 
     persons.splice(person, 1);
