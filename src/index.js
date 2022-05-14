@@ -9,20 +9,20 @@ const persons = [];
 app.post("/person", (request, response) => {
     const { id, name, age } = request.body;
 
-    const personAlreadyExist = persons.find((person) => person.id === id);
+    const person = persons.find((person) => person.id == id);
 
-    if(personAlreadyExist) {
+    if(person) {
         return response.status(400).send({errorMessage: "Person with id: " + id + " already created"})
     }
 
-    const person = {
+    const newPerson = {
         id,
         name, 
         age
     }
 
-    persons.push(person);
-    return response.status(201).send(person);
+    persons.push(newPerson);
+    return response.status(201).send(newPerson);
 });
 
 //read all
